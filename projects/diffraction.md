@@ -37,4 +37,4 @@ Coming soon.
 
 ## Source Code
 
-[View the project repository →](https://github.com/nk-clara/diffraction-synth)
+(https://github.com/nk-clara/diffraction-synth)
