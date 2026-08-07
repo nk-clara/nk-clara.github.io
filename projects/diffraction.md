@@ -1,10 +1,9 @@
 ---
 layout: default
-title: Diffraction Synthesizer: A Sonification of Fraunhofer Diffraction
+title: Diffraction Synthesizer 
 ---
 
-# Auditory Representation of Fraunhofer Diffraction
-
+# Diffraction Synthesizer: A Sonfication of Fraunhofer Diffraction
 ...
 
 ## Overview
