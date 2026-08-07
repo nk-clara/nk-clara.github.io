@@ -1,0 +1,10 @@
+title: Clara NK 
+description: Physics and computational projects
+url: "https://nk-clara.github.io"
+
+markdown: kramdown
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
