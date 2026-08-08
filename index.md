@@ -9,5 +9,8 @@ title: Home
 
 ## Projects
 
-### Diffraction Synthesizer: A Sonification of Fraunhofer Diffraction
+{% link diffraction.md %} Diffraction Synthesizer: A Sonification of Fraunhofer Diffraction
 ...
+
+## About
+{% link about.md %}
