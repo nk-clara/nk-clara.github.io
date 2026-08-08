@@ -15,13 +15,13 @@ In this project, I aimed at creating an instrument in Python that could sonify d
 
 
 
-## The Physics
+## Background
 
 **add Intro about diffraction**
 - mention the difference between electric field amplitude and intensity, and specify which will be used! (i.e. electric field waveform refers to its amplitude)
 - 
 
-If you, like me, have any interest in both music and physics, you will probably have heard that the timbre, or unique sound, of synthesizers can be altered by modulating a pure tone. Modulation involves changing the shape of a sound wave at a specific base frequency by overlaying it with another wave form. **add image?**  The key idea behind this Synth was to apply a modulation to pure musical notes that was based on the waveform of the electric field at the diffraction screen.
+If you, like me, have any interest in both music and physics, you will probably have heard that the timbre, or unique sound, of synthesizers can be altered by modulating a pure tone. Modulation involves changing the shape of a sound wave at a specific base frequency by overlaying it with another wave form. **add image?**  The key idea behind this Synth was to apply a modulation to musical notes (pure sine waves) that was based on the waveform of the electric field amplitude at the diffraction screen.
 
 This led to three primary steps to building the Synth:
 
