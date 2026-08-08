@@ -1,4 +1,4 @@
-<img width="1146" height="110" alt="image" src="https://github.com/user-attachments/assets/3fd20eb1-5e93-40cb-810f-0b97e4194079" />---
+---
 layout: default
 title: Diffraction Synthesizer 
 ---
