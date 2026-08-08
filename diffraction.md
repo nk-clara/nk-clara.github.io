@@ -46,14 +46,15 @@ We start by defining the coordinates of our setup. Let x be direction parallel t
 
 Now assume we have a plane wave of light incident on the aperture. We can define an aperture function, A(x), that determines at which points along z = 0, light is actually be transmitted. For example, for a single slit, the aperture function is **insert function**.
 
-By Huygen's principle, every point along the wavefront at which A(x) =/ 0 acts as a point source of secondary spherical wavelets. Given that the electric field amplitude decays with 1/r, the electric field from each wavelet can be represented as **insert equation**. Therefore, the field at a screen position is simply the sum of contributions from the whole aperture, represented by the integral
+By Huygen's principle, every point along the wavefront at which A(x) =/ 0 acts as a point source of secondary spherical wavelets. Given that the electric field amplitude decays with 1/r, the electric field from each wavelet can be represented as **insert equation**. Therefore, the field at a screen position is simply the sum of contributions from the whole aperture, represented by the integral: **add integral**
 
-At a particular observation angle, the electric field at the screen is simply the sum of contributions from each point source.
+Each wavelet travels a different path distance r to reach the screen, resulting in a difference in propagation phase. Whether these interfere to produce a dark or bright fringe depends on the overall phase distribution across the aperture for that particular observation direction. 
 
-- Each of secondary wavelets has accumulated a different phase to reach the screen, and whether they interfere to produce a dark or bright fringe depends on the phase distribution across the aperture. 
-- In the far field, this phase variation is approximately linear with position along the aperture, with a scaling dependent on the observation angle to the screen / position along the screen.
-- **add diagram of phasors along the aperture to visualise how the phase ramp is really just dictated by a spatial frequency**
-- Since phase along the aperture varies periodically, it can be expressed by the complex factor ...
+In the far field, this phase distribution is approximately linear with position along the aperture, with a scaling dependent on the observation direction (angle to the screen).
+
+**add diagram of phasors along the aperture to visualise how the phase ramp is really just dictated by a spatial frequency**
+
+We see that the phase accumulated by point sources along the aperture varies periodically, it can be expressed by the complex factor ...
 
 - From this, the contribution from a point source at z = 0 can be expressed as A(x) * phase factor * decaying complex waveform, and the total contribution is the integral of this for all x **add integral**.
 
