@@ -19,8 +19,9 @@ In this project, I aimed at creating an instrument in Python that could sonify d
 
 **add Intro about diffraction**
 - mention the difference between electric field amplitude and intensity, and specify which will be used! (i.e. electric field waveform refers to its amplitude)
+- 
 
-If you, like me, have any interest in both music and physics, you will probably have heard that the timbre, or unique sound, of synthesizers can be altered by modulating a pure tone. Modulation simply involves changing the shape of a sound wave at a specific base frequency by overlaying it with another wave form. **add image?**  The key idea behind this Synth was to apply a modulation to pure musical notes that was based on the wave-form of the electric field at the diffraction screen.
+If you, like me, have any interest in both music and physics, you will probably have heard that the timbre, or unique sound, of synthesizers can be altered by modulating a pure tone. Modulation involves changing the shape of a sound wave at a specific base frequency by overlaying it with another wave form. **add image?**  The key idea behind this Synth was to apply a modulation to pure musical notes that was based on the waveform of the electric field at the diffraction screen.
 
 This led to three primary steps to building the Synth:
 
@@ -31,11 +32,28 @@ This led to three primary steps to building the Synth:
 
 ## Step 1: Determining the electric field waveform
 
-For a simple single slit, the electric field at the screen can be described by a continuous sinc function **add image**, which is easily applied in Python. But, after encountering a video **add link** on Fourier optics, which used apertures in the shaped of letters to produce more intricate diffraction patterns, I wanted my Synth to work with *any* aperture. This means I needed a tool that determined the electric field waveform from a given aperture shape: the Fourier transform.
+For a simple single slit, the electric field at the screen can be described by a continuous sinc function **add image**, which is easily applied in Python. But, after encountering a video **add link** on Fourier optics, which used apertures in the shaped of letters to produce more intricate diffraction patterns, I wanted my Synth to work with *any* aperture (in one spatial dimension, in order to be mapped onto a pure sine). This means I needed a tool that determined the electric field waveform from a given aperture shape: the Fourier transform.
 
-**But, how exactly is the electric field waveform at the screen a Fourier transform of the aperture function?**
+**But, how exactly is the electric field waveform at the screen a Fourier transform of the aperture?**
 
-... brief explanation: Learned about spatial frequency components, Huygens principle, propagation phase, the far-field approximation, etc. Needs some paraphrasing but captures the gist well: In the geometric interpretation, each point along the screen is associated with a specific value of kx. Kx also describes how fast the propagation phase associated with a specific point on the screen varies across the aperture. Whether we see a dark or bright fringe depends on the phase distribution across the point sources constituting the original plane wave that are not blocked by the aperture. This is why we say that the resulting electric field pattern is a projection of the aperture onto all possible phase ramps, and thus all possible spatial frequencies.
+- start with the aperture function
+
+- (Let x be direction parallel to the aperture and the screen, and z be the perpendicular direction, add diagram)
+- By Huygen's principle, we can think of a plane wave arriving at the aperture as made up of infinitesimal point sources to radially propagating wavelets.
+- With radial distance, r, from each point source, the electric field amplitude decays with 1/r, so that the complex electric field of each wavelet is proportional to **insert equation**.
+
+- At a particular observation angle/point along the screen, the electric field is simply the sum of contributions from each point source for all x at z = 0. We can define an aperture function, A(x), that determines at which points along z = 0 light can actually be transmitted. For example, for a single slit, the aperture function is **...insert**
+
+- Each of secondary wavelets has accumulated a different phase to reach the screen, and whether they interfere to produce a dark or bright fringe depends on the phase distribution across the aperture. 
+- In the far field, this phase variation is approximately linear with position along the aperture, with a scaling dependent on the observation angle to the screen / position along the screen.
+- **add diagram of phasors along the aperture to visualise how the phase ramp is really just dictated by a spatial frequency**
+- Since phase along the aperture varies periodically, it can be expressed by the complex factor ...
+
+- From this, the contribution from a point source at z = 0 can be expressed as A(x) * phase factor * decaying complex waveform, and the total contribution is the integral of this for all x **add integral**.
+
+- This is the Fourier transform! Essentially, we can think of this as mapping whether the aperture overlaps with the specific frequency of phase variation along x associated with a point on the screen. **add diagram**
+
+
 
 
 ## Step 2: Converting from optics to sound
