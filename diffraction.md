@@ -32,17 +32,23 @@ This led to three primary steps to building the Synth:
 
 ## Step 1: Determining the electric field waveform
 
-For a simple single slit, the electric field at the screen can be described by a continuous sinc function **add image**, which is easily applied in Python. But, after encountering a video **add link** on Fourier optics, which used apertures in the shaped of letters to produce more intricate diffraction patterns, I wanted my Synth to work with *any* aperture (in one spatial dimension, in order to be mapped onto a pure sine). This means I needed a tool that determined the electric field waveform from a given aperture shape: the Fourier transform.
+For a simple single slit, the electric field at the screen can be described by a continuous sinc function, which is easily applied in Python. 
+
+**add image**
+
+But, after encountering a video **add link** on Fourier optics, which used apertures in the shaped of letters to produce more intricate diffraction patterns, I wanted my Synth to work with *any* aperture. This means I needed a tool that determined the waveform of the electric field aperture for a given aperture shape: the Fourier transform.
 
 **But, how exactly is the electric field waveform at the screen a Fourier transform of the aperture?**
 
-- start with the aperture function
+We start by defining the coordinates of our setup. Let x be direction parallel to the aperture and the screen, and z be the perpendicular direction, so that the aperture is at z = 0 and the screen is at z = d.
 
-- (Let x be direction parallel to the aperture and the screen, and z be the perpendicular direction, add diagram)
-- By Huygen's principle, we can think of a plane wave arriving at the aperture as made up of infinitesimal point sources to radially propagating wavelets.
-- With radial distance, r, from each point source, the electric field amplitude decays with 1/r, so that the complex electric field of each wavelet is proportional to **insert equation**.
+**add diagram**
 
-- At a particular observation angle/point along the screen, the electric field is simply the sum of contributions from each point source for all x at z = 0. We can define an aperture function, A(x), that determines at which points along z = 0 light can actually be transmitted. For example, for a single slit, the aperture function is **...insert**
+Now assume we have a plane wave of light incident on the aperture. We can define an aperture function, A(x), that determines at which points along z = 0, light is actually be transmitted. For example, for a single slit, the aperture function is **insert function**.
+
+By Huygen's principle, every point along the wavefront at which A(x) =/ 0 acts as a point source of secondary spherical wavelets. Given that the electric field amplitude decays with 1/r, the electric field from each wavelet can be represented as **insert equation**. Therefore, the field at a screen position is simply the sum of contributions from the whole aperture, represented by the integral
+
+At a particular observation angle, the electric field at the screen is simply the sum of contributions from each point source.
 
 - Each of secondary wavelets has accumulated a different phase to reach the screen, and whether they interfere to produce a dark or bright fringe depends on the phase distribution across the aperture. 
 - In the far field, this phase variation is approximately linear with position along the aperture, with a scaling dependent on the observation angle to the screen / position along the screen.
