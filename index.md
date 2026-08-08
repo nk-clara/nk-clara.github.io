@@ -5,12 +5,12 @@ title: Home
 
 # Clara NK
 
+[About](https://nk-clara.github.io/about)
+
 ...
 
 ## Projects
 
-{% link diffraction.md %} Diffraction Synthesizer: A Sonification of Fraunhofer Diffraction
-...
+[Diffraction Synthesizer](https://nk-clara.github.io/diffraction)
 
-## About
-{% link about.md %}
+...
