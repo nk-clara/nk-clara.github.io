@@ -36,32 +36,13 @@ For a simple single slit, the electric field at the screen can be described by a
 
 **add image**
 
-But, after encountering a video **add link** on Fourier optics, which used apertures in the shaped of letters to produce more intricate diffraction patterns, I wanted my Synth to work with *any* aperture. This means I needed a tool that determined the waveform of the electric field aperture for a given aperture shape: the Fourier transform.
+But, after encountering a video **add link** on Fourier optics, which used uncommon aperture shapes to produce intricate diffraction patterns, I wanted my Synth to work with *any* aperture (in one spatial dimension). In turn, I needed a way to describe the electric field at the screen as a function of the aperture shape.
 
-**But, how exactly is the electric field waveform at the screen a Fourier transform of the aperture?**
+This is exactly what a Fourier transform does.
 
-We start by defining the coordinates of our setup. Let x be direction parallel to the aperture and the screen, and z be the perpendicular direction, so that the aperture is at z = 0 and the screen is at z = d.
+...
 
-**add diagram**
-
-We define our aperture through a function A(x), which indicates where along the axis z = 0 light can be transmitted. For example, for a single slit, the aperture function is **insert function**.
-
-Now assume we have a plane wave of light incident on an aperture. By Huygen's principle, every point along a wavefront acts as a point source of secondary spherical wavelets. The electric field at a particular point X on the screen is the sum (or superposition) of all incident wavelets.
-
-To reach this point, each wavelet travels through a slightly different path length, accumulating different propagation phases. To visualise the acquired phases, consider a phasor assigned to each point along the aperture. In the far field (the Fraunhofer region), the phase distribution is approximately linear in x. Visually, this means the phasors rotate with a fixed spatial frequency, **kx**. Thus, the phasor orientation can be expressed as **e^-ikxx**. 
-
-**add diagram of phasors along the aperture**
-
-The aperture function now determines which of these phasors actually contribute to the field: where A(x)=0, there is no transmitted wavelet, and where A(x)=/0, the corresponding phasor contributes to the sum. Thus, the electric field at our chosen point X is the vector sum of the phasors selected by the aperture. 
-
-**insert integral**
-
-Due to geometry, the phase distribution along the aperture varies for all points X along the screen. In other words, each position on the screen can be associated with a particular value of kx, so that the integral is equivalently expressed as:
-
-**insert integral**
-
-This is the Fourier transform of A(x). 
-  
+To cover this concept more in depth, I created a separate post on why diffraction patterns are a Fourier transform of the aperture function.
 
 ## Step 2: Converting from optics to sound
 
