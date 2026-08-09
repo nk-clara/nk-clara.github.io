@@ -40,9 +40,14 @@ But, after encountering a video **add link** on Fourier optics, which used uncom
 
 This is exactly what a Fourier transform does.
 
-...
+It turns out the Fraunhofer diffraction pattern is proportional to the Fourier transform of the aperture function:
 
-To cover this concept more in depth, I created a separate post on why diffraction patterns are a Fourier transform of the aperture function.
+**insert equation**
+
+- A(x) describes the aperture.
+- Its Fourier transform gives the electric-field distribution in spatial-- - frequency space.
+- Therefore, applying an FFT to A(x) gives the diffraction pattern you need.
+- To cover this concept more in depth, I created a separate post on why diffraction patterns are a Fourier transform of the aperture function.
 
 ## Step 2: Converting from optics to sound
 
