@@ -45,7 +45,7 @@ It turns out the Fraunhofer diffraction pattern is proportional to the Fourier t
 **insert equation**
 
 - A(x) describes the aperture.
-- Its Fourier transform gives the electric-field distribution in spatial-- - frequency space.
+- Its Fourier transform gives the electric-field distribution in spatial-frequency space (which can be converted to screen positions)
 - Therefore, applying an FFT to A(x) gives the diffraction pattern you need.
 - To cover this concept more in depth, I created a separate post on why diffraction patterns are a Fourier transform of the aperture function.
 
