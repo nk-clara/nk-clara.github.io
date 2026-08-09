@@ -21,7 +21,7 @@ In this project, I aimed at creating an instrument in Python that could sonify d
 - mention the difference between electric field amplitude and intensity, and specify which will be used! (i.e. electric field waveform refers to its amplitude)
 - 
 
-If you, like me, have any interest in both music and physics, you will probably have heard that the timbre, or unique sound, of synthesizers can be altered by modulating a pure tone. Modulation involves changing the shape of a sound wave at a specific base frequency by overlaying it with another wave form. **add image?**  The key idea behind this Synth was to apply a modulation to musical notes (pure sine waves) that was based on the waveform of the electric field amplitude at the diffraction screen.
+If you, like me, are interested in both music and physics, you will probably have heard that the timbre, or unique sound, of synthesizers can be altered by modulating a pure tone. Modulation involves changing the shape of a sound wave at a specific base frequency by overlaying it with another wave form. **add image?**  The key idea behind this Synth was to apply a modulation to musical notes (pure sine waves) that was based on the waveform of the electric field amplitude at the diffraction screen.
 
 This led to three primary steps to building the Synth:
 
@@ -44,24 +44,24 @@ We start by defining the coordinates of our setup. Let x be direction parallel t
 
 **add diagram**
 
-Now assume we have a plane wave of light incident on the aperture. We can define an aperture function, A(x), that determines at which points along z = 0, light is actually be transmitted. For example, for a single slit, the aperture function is **insert function**.
+We define our aperture through a function A(x), which indicates where along the axis z = 0 light can be transmitted. For example, for a single slit, the aperture function is **insert function**.
 
-By Huygen's principle, every point along the wavefront at which A(x) =/ 0 acts as a point source of secondary spherical wavelets. Given that the electric field amplitude decays with 1/r, the electric field from each wavelet can be represented as **insert equation**. Therefore, the field at a screen position is simply the sum of contributions from the whole aperture, represented by the integral: **add integral**
+Now assume we have a plane wave of light incident on an aperture. By Huygen's principle, every point along a wavefront acts as a point source of secondary spherical wavelets. The electric field at a particular point X on the screen is the sum (or superposition) of all incident wavelets.
 
-Each wavelet travels a different path distance r to reach the screen, resulting in a difference in propagation phase. Whether these interfere to produce a dark or bright fringe depends on the overall phase distribution across the aperture for that particular observation direction. 
+To reach this point, each wavelet travels through a slightly different path length, accumulating different propagation phases. To visualise the acquired phases, consider a phasor assigned to each point along the aperture. In the far field (the Fraunhofer region), the phase distribution is approximately linear in x. Visually, this means the phasors rotate with a fixed spatial frequency, **kx**. Thus, the phasor orientation can be expressed as **e^-ikxx**. 
 
-In the far field, this phase distribution is approximately linear with position along the aperture, with a scaling dependent on the observation direction (angle to the screen).
+**add diagram of phasors along the aperture**
 
-**add diagram of phasors along the aperture to visualise how the phase ramp is really just dictated by a spatial frequency**
+The aperture function now determines which of these phasors actually contribute to the field: where A(x)=0, there is no transmitted wavelet, and where A(x)=/0, the corresponding phasor contributes to the sum. Thus, the electric field at our chosen point X is the vector sum of the phasors selected by the aperture. 
 
-We see that the phase accumulated by point sources along the aperture varies periodically, it can be expressed by the complex factor ...
+**insert integral**
 
-- From this, the contribution from a point source at z = 0 can be expressed as A(x) * phase factor * decaying complex waveform, and the total contribution is the integral of this for all x **add integral**.
+Due to geometry, the phase distribution along the aperture varies for all points X along the screen. In other words, each position on the screen can be associated with a particular value of kx, so that the integral is equivalently expressed as:
 
-- This is the Fourier transform! Essentially, we can think of this as mapping whether the aperture overlaps with the specific frequency of phase variation along x associated with a point on the screen. **add diagram**
+**insert integral**
 
-
-
+This is the Fourier transform of A(x). 
+  
 
 ## Step 2: Converting from optics to sound
 
