@@ -12,5 +12,5 @@ title: Home
 ## Projects
 
 [Diffraction Synthesizer](https://nk-clara.github.io/diffraction)
-[HEP Project](https://nk-clara.github.io/HEP)
+[HEP Project](https://nk-clara.github.io/hep)
 ...
