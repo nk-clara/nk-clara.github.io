@@ -5,11 +5,14 @@ title: Diffraction Synthesizer
 
 # Diffraction Synthesizer: The Sounds of Fraunhofer Diffraction
 
+<img width="589" height="661" alt="Screenshot 2026-08-11 at 23 40 56" src="https://github.com/user-attachments/assets/98ef20bf-1852-4328-80ed-f86c9ef73be4" />
+
 
 
 ## Overview
 
 <img width="539" height="213" alt="Screenshot 2026-08-11 at 23 32 43" src="https://github.com/user-attachments/assets/af14e59f-4777-4706-b673-011f09fdfee1" />
+
 *Source: http://labman.phys.utk.edu/phys136core/modules/m9/diffraction.html*
 
 While studying diffraction, I learned that Fraunhofer diffraction can be mathematically described by a Fourier transform, an operation which is used to break any function down into its constituent frequencies. I was intrigued, since I had previously only encountered Fourier transforms as method for audio signal processing, i.e. breaking down sounds into their constituent frequencies. This provoked me to think about what parallels could be drawn between optical and audio spectra, which ultimately led to the Diffraction Synthesizer.
