@@ -133,4 +133,4 @@ Add explanation of how to use the synth.
 
 ## Source Code
 
-(https://github.com/nk-clara/python)
+(https://github.com/nk-clara/python/diffraction_synth)
