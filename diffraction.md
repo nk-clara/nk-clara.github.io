@@ -5,7 +5,7 @@ title: Diffraction Synthesizer
 
 # Diffraction Synthesizer: The Sounds of Fraunhofer Diffraction
 
-<img width="589" height="661" alt="Screenshot 2026-08-11 at 23 40 56" src="https://github.com/user-attachments/assets/98ef20bf-1852-4328-80ed-f86c9ef73be4" />
+<img width="585" height="282" alt="Screenshot 2026-08-11 at 23 40 56" src="https://github.com/user-attachments/assets/22c1fc47-562f-4868-9d56-42245ecf104b" />
 
 
 
