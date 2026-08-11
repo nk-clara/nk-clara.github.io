@@ -118,19 +118,18 @@ Finally, I built the interactive element using Pygame.
 
 
 
-## Results
+## How to use
 
 Add explanation of how to use the synth.
 
 
-## What I Learned
-
-
-## Extensions
+## Takeaways and extensions
 
 
 
 
 ## Source Code
 
-(https://github.com/nk-clara/python/diffraction_synth)
+(https://github.com/nk-clara/python)
+
+## References
