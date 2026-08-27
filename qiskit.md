@@ -1,5 +1,5 @@
 ---
 layout: default
-title: HEP Project
+title: Qiskit Basics
 ---
 
