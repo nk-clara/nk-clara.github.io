@@ -1,6 +1,7 @@
 title: Clara NK 
 description: Physics and computational projects
 url: "https://nk-clara.github.io"
+baseurl: "/nk-clara"
 
 markdown: kramdown
 
