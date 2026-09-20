@@ -4,6 +4,11 @@ url: "https://nk-clara.github.io"
 permalink: /:categories/:title
 
 markdown: kramdown
+
+kramdown:
+  input: GFM
+  math_engine: mathjax
+  
 collections:
   projects:
     output: true
