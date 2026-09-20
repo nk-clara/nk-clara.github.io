@@ -1,48 +1,36 @@
 ---
 layout: default
-title: Project Directory
+title: Home
 ---
 <section class="hero">
-    <h1>Project Directory & Engineering Logs</h1>
-    <p>A direct, chronological line into my builds, experiments, and code updates.</p>
+    <h1>Project Porfolio</h1>
+    <p>A collection of physics and computing projects!</p>
 </section>
 
 <section class="directory-container">
-    <!-- Group 1: E-Commerce Platform Updates -->
-    <div class="project-group">
-        <div class="project-info">
-            <h2>🛒 E-Commerce Platform</h2>
-            <p>A full-stack online storefront architecture built to test simulated load limits.</p>
-        </div>
-        <ul class="posts-list">
-            {% assign ecom_posts = site.posts | where: "categories", "ecom-platform" %}
-            {% for post in ecom_posts %}
-                <li>
-                    <time>{{ post.date | date: "%b %d" }}</time>
-                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                </li>
-            {% empty %}
-                <li>No updates logged yet.</li>
-            {% endfor %}
-        </ul>
-    </div>
+    <!-- 1. Loop through every unique category found across all posts -->
+    {% for category in site.categories %}
+        <!-- Extract the category name -->
+        {% assign project_name = category | first %} 
+        <!-- Extract all posts belonging to this specific category -->
+        {% assign project_posts = category | last %} 
 
-    <!-- Group 2: Mobile Game Engine Updates -->
-    <div class="project-group">
-        <div class="project-info">
-            <h2>🎮 Mobile Game Project</h2>
-            <p>A lightweight 2D canvas deployment tracking mobile asset rendering optimization.</p>
+        <div class="project-group">
+            <div class="project-info">
+                <!-- Displays category slug clean and capitalized (e.g. "Ecom platform") -->
+                <h2>📂 {{ project_name | replace: "-", " " | capitalize }}</h2>
+                <p>Tracking updates and logs for the {{ project_name }} scope.</p>
+            </div>
+            
+            <ul class="posts-list">
+                <!-- 2. Loop through all the posts inside this specific project category -->
+                {% for post in project_posts %}
+                    <li>
+                        <time>{{ post.date | date: "%b %d" }}</time>
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
-        <ul class="posts-list">
-            {% assign game_posts = site.posts | where: "categories", "mobile-game" %}
-            {% for post in game_posts %}
-                <li>
-                    <time>{{ post.date | date: "%b %d" }}</time>
-                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                </li>
-            {% empty %}
-                <li>No updates logged yet.</li>
-            {% endfor %}
-        </ul>
-    </div>
+    {% endfor %}
 </section>
