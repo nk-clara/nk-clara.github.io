@@ -1,9 +1,48 @@
 ---
 layout: default
-title: Home
+title: Project Directory
 ---
-<div class="hero">
-    <h1>Welcome to My Engineering Portfolio</h1>
-    <p>I build robust applications and document the entire development cycle step-by-step.</p>
-    <a href="/projects.html" class="btn">Explore My Projects →</a>
-</div>
+<section class="hero">
+    <h1>Project Directory & Engineering Logs</h1>
+    <p>A direct, chronological line into my builds, experiments, and code updates.</p>
+</section>
+
+<section class="directory-container">
+    <!-- Group 1: E-Commerce Platform Updates -->
+    <div class="project-group">
+        <div class="project-info">
+            <h2>🛒 E-Commerce Platform</h2>
+            <p>A full-stack online storefront architecture built to test simulated load limits.</p>
+        </div>
+        <ul class="posts-list">
+            {% assign ecom_posts = site.posts | where: "categories", "ecom-platform" %}
+            {% for post in ecom_posts %}
+                <li>
+                    <time>{{ post.date | date: "%b %d" }}</time>
+                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                </li>
+            {% empty %}
+                <li>No updates logged yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Group 2: Mobile Game Engine Updates -->
+    <div class="project-group">
+        <div class="project-info">
+            <h2>🎮 Mobile Game Project</h2>
+            <p>A lightweight 2D canvas deployment tracking mobile asset rendering optimization.</p>
+        </div>
+        <ul class="posts-list">
+            {% assign game_posts = site.posts | where: "categories", "mobile-game" %}
+            {% for post in game_posts %}
+                <li>
+                    <time>{{ post.date | date: "%b %d" }}</time>
+                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                </li>
+            {% empty %}
+                <li>No updates logged yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
