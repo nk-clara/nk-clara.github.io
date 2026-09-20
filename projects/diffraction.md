@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Diffraction Synthesizer 
 date: 08-08-2026
 description: Sonifying diffraction patterns using FFTs in python
