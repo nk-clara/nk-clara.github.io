@@ -1,5 +1,5 @@
 ---
 layout: default
-title: Qiskit Basics
+title: Learning Qiskit
 ---
 
