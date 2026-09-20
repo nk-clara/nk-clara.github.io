@@ -2,16 +2,29 @@
 layout: default
 title: Home Directory
 ---
+
 <section class="hero">
-    <h1>Project Porfolio</h1>
-    <p>A collection of physics and computing projects!</p>
+  <h1>Project Portfolio</h1>
+  <p>A collection of physics and computing projects!</p>
 </section>
 
-
-{% for project in site.projects %}
-  <div class="project-group">
-    <h2>📂 {{ project.title }}</h2>
-    <p>{{ project.description }}</p>
-    <a href="{{ project.url | relative_url }}">View project →</a>
-  </div>
-{% endfor %}
+<section class="directory-container">
+  {% for project in site.projects %}
+    <div class="project-group">
+      <div class="project-info">
+        <h2>📂 {{ project.title }}</h2>
+        {% if project.description %}
+          <p>{{ project.description }}</p>
+        {% endif %}
+      </div>
+      <ul class="posts-list">
+        <li>
+          {% if project.date %}
+            <time>{{ project.date | date: "%b %d" }}</time>
+          {% endif %}
+          <a href="{{ project.url | relative_url }}">View project →</a>
+        </li>
+      </ul>
+    </div>
+  {% endfor %}
+</section>
