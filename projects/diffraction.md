@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: post
 title: Diffraction Synthesizer 
+categories: projects
 ---
 
 # Diffraction Synthesizer: The Sounds of Fraunhofer Diffraction
