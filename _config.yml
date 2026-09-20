@@ -1,14 +1,10 @@
-title: Clara NK 
+title: Clara NK
 description: Physics and computational projects
 url: "https://nk-clara.github.io"
 permalink: /:categories/:title
-
 markdown: kramdown
-
 kramdown:
-  input: GFM
-  math_engine: mathjax
-  
+  math_engine: null
 collections:
   projects:
     output: true
