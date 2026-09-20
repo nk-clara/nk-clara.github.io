@@ -7,4 +7,4 @@ markdown: kramdown
 collections:
   projects:
     output: true
-    permalink: /projects/:name/
+    permalink: /projects
