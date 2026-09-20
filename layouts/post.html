@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<article class="post-container">
+    <a href="/" class="back-link">← Back to Project Directory</a>
+    <header class="post-header">
+        <span class="project-tag">{{ page.categories | first | replace: "-", " " | capitalize }}</span>
+        <h1>{{ page.title }}</h1>
+        <time class="post-date">{{ page.date | date: "%B %d, %Y" }}</time>
+    </header>
+    
+    <div class="post-body">
+        {{ content }}
+    </div>
+</article>
