@@ -4,7 +4,4 @@ url: "https://nk-clara.github.io"
 baseurl: "/nk-clara"
 
 markdown: kramdown
-
-header_pages:
-  - about.md
-  - projects.md
+remote_theme: "jekyll/minima@1e8a445"
