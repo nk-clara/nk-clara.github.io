@@ -8,10 +8,11 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="/" class="logo">Portfolio</a>
+        <a href="{{ '/' | relative_url }}" class="logo">Portfolio</a>
         <div class="nav-links">
-            <a href="/">Home</a>
-            <a href="/projects.html">Projects</a>
+            <!-- Direct both to the homepage, or use an anchor link if you want it to scroll -->
+            <a href="{{ '/' | relative_url }}">Home</a>
+            <a href="{{ '/' | relative_url }}#directory">Projects</a>
         </div>
     </nav>
     <main class="container">{{ content }}</main>
