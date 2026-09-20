@@ -7,30 +7,11 @@ title: Home Directory
     <p>A collection of physics and computing projects!</p>
 </section>
 
-<section class="directory-container">
-    <!-- 1. Loop through every unique category found across all posts -->
-    {% for category in site.categories %}
-        <!-- Extract the category name -->
-        {% assign project_name = category | first %} 
-        <!-- Extract all posts belonging to this specific category -->
-        {% assign project_posts = category | last %} 
 
-        <div class="project-group">
-            <div class="project-info">
-                <!-- Displays category slug clean and capitalized (e.g. "Ecom platform") -->
-                <h2>📂 {{ project_name | replace: "-", " " | capitalize }}</h2>
-                <p>Tracking updates and logs for the {{ project_name }} scope.</p>
-            </div>
-            
-            <ul class="posts-list">
-                <!-- 2. Loop through all the posts inside this specific project category -->
-                {% for post in project_posts %}
-                    <li>
-                        <time>{{ post.date | date: "%b %d" }}</time>
-                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endfor %}
-</section>
+{% for project in site.projects %}
+  <div class="project-group">
+    <h2>📂 {{ project.title }}</h2>
+    <p>{{ project.description }}</p>
+    <a href="{{ project.url | relative_url }}">View project →</a>
+  </div>
+{% endfor %}
