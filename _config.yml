@@ -4,7 +4,6 @@ url: "https://nk-clara.github.io"
 
 markdown: kramdown
 
-collections:
-  projects:
-    output: true
-    permalink: /projects
+header_pages:
+  - about.md
+  - projects.md
