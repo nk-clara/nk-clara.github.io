@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Diffraction Synthesizer 
+date: 08-08-2026
+description: Sonifying diffraction patterns using FFTs in python
 ---
 
 # Diffraction Synthesizer: The Sounds of Fraunhofer Diffraction
