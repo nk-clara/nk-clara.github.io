@@ -31,7 +31,7 @@ If you, like me, are interested in both music and physics, you will probably hav
   <figcaption>Source: <a href="https://www.technologyuk.net/telecommunications/telecom-principles/amplitude-modulation.shtml">technologyuk.net</a></figcaption>
 </figure>
 
-The key idea behind this Synth is to perform amplitude modulation on musical notes, where the carrier signal is a pure sine and the modulating signal is based on the amplitude pattern produced when light diffracts through a specific aperture. Here, "amplitude pattern" refers to the electric field amplitude as a function of position along the observation screen. I chose the amplitude pattern instead of the intensity pattern as the basis for this modulating signal, as it produces clearer differences in timbre. (Since $$|E|^2 \propto I$$, the intensity pattern drops much more quickly).
+The key idea behind this Synth is to perform amplitude modulation on musical notes, where the carrier signal is a pure sine and the modulating signal is based on the amplitude pattern produced when light diffracts through a specific aperture. Here, "amplitude pattern" refers to the electric field amplitude as a function of position along the observation screen. I chose the amplitude pattern instead of the intensity pattern as the basis for this modulating signal, as it produces clearer differences in timbre. (Since $$ \lvert E \rvert^2 \propto I $$, the intensity pattern drops much more quickly).
 
 <div class="image-row">
   <figure class="post-figure">
@@ -242,18 +242,20 @@ def modulate_sound(x,aperture,l,d,duration,carrier_freq,scale):
 
 ## Building the Game in PyGame
 
-Finally, I designed the synth layout, and built the interactive element using PyGame and SoundDevice. I initially struggled to figure out the best library for both sonification and graphing, and I specifically couldn't figure out how to map the graph onto a PyGame surface (here, I had ChatGPT write up a function). Even with a working sound library, I encountered issues with the "smoothness" of the modulated sound, which ChatGPT traced to the interval size and padding value chosen. In other words, I had to spend some time manually fine-tuning the parameters for the amplitude function to ensure the FFT yielded spatial frequencies spaced closely enough to produce a "smooth" diffraction pattern.
+Finally, I designed the synth layout, and built the interactive element using PyGame and Sounddevice. I initially struggled to figure out the best library for both sonification and graphing, and I specifically couldn't figure out how to map the graph onto a PyGame surface (here, I had ChatGPT write up a function). Even with a working sound library, I encountered issues with the "smoothness" of the modulated sound, which ChatGPT traced to the interval size and padding value chosen. In other words, I had to spend some time manually fine-tuning the parameters for the amplitude function to ensure the FFT yielded spatial frequencies spaced closely enough to produce a "smooth" diffraction pattern.
 
-Try for yourself:
+Try for yourself: 
+
+<div class="code-download">
+  <a href="{{ '/assets/diffraction_synth.py' | relative_url }}" download>⬇ Download diffraction_synth.py</a>
+  <p class="synth-note">This runs locally via PyGame and Sounddevice, so it can't run directly in the browser. Click the buttons to select the respective slit properties, press <kbd>Space</kbd> to change the number of slits in the aperture, and the press the letter keys to play notes.</p>
+</div>
 
 <div class="synth-demo">
   <video controls poster="PATH_TO_A_THUMBNAIL.png">
     <source src="PATH_TO_YOUR_SCREEN_RECORDING.mp4" type="video/mp4">
     Your browser doesn't support embedded video — see the source code below to run it locally.
   </video>
-  <p class="synth-note">This runs locally via PyGame + sounddevice, so it can't run directly in the browser — press <kbd>Space</kbd> to change aperture, and the letter keys to play notes.</p>
 </div>
 
-<div class="code-download">
-  <a href="{{ '/assets/diffraction_synth.py' | relative_url }}" download>⬇ Download diffraction_synth.py</a>
-</div>
+
