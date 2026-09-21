@@ -11,6 +11,13 @@ description: Sonifying diffraction patterns using FFTs in python
   <img alt="Screenshot 2026-08-11 at 23 40 56" src="https://github.com/user-attachments/assets/22c1fc47-562f-4868-9d56-42245ecf104b" />
 </figure>
 
+<div class="synth-demo">
+  <video controls poster="PATH_TO_A_THUMBNAIL.png">
+    <source src="PATH_TO_YOUR_SCREEN_RECORDING.mp4" type="video/mp4">
+    Your browser doesn't support embedded video — see the source code below to run it locally.
+  </video>
+</div>
+
 ## Summary
 
 While studying diffraction, I learned that Fraunhofer diffraction can be mathematically described by a Fourier transform, an operation which is used to break any function down into its constituent frequencies. I was intrigued, since I had previously only encountered Fourier transforms as method for audio signal processing, i.e. breaking down sounds into their constituent frequencies. This provoked me to think about what parallels could be drawn between optical and audio spectra, which ultimately led to the Diffraction Synthesizer.
@@ -244,18 +251,9 @@ def modulate_sound(x,aperture,l,d,duration,carrier_freq,scale):
 
 Finally, I designed the synth layout, and built the interactive element using PyGame and Sounddevice. I initially struggled to figure out the best library for both sonification and graphing, and I specifically couldn't figure out how to map the graph onto a PyGame surface (here, I had ChatGPT write up a function). Even with a working sound library, I encountered issues with the "smoothness" of the modulated sound, which ChatGPT traced to the interval size and padding value chosen. In other words, I had to spend some time manually fine-tuning the parameters for the amplitude function to ensure the FFT yielded spatial frequencies spaced closely enough to produce a "smooth" diffraction pattern.
 
-Try for yourself: 
-
-<div class="code-download">
+Try for yourself: <div class="code-download">
   <a href="{{ '/assets/diffraction_synth.py' | relative_url }}" download>⬇ Download diffraction_synth.py</a>
   <p class="synth-note">This runs locally via PyGame and Sounddevice, so it can't run directly in the browser. Click the buttons to select the respective slit properties, press <kbd>Space</kbd> to change the number of slits in the aperture, and the press the letter keys to play notes.</p>
-</div>
-
-<div class="synth-demo">
-  <video controls poster="PATH_TO_A_THUMBNAIL.png">
-    <source src="PATH_TO_YOUR_SCREEN_RECORDING.mp4" type="video/mp4">
-    Your browser doesn't support embedded video — see the source code below to run it locally.
-  </video>
 </div>
 
 
