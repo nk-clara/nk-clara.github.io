@@ -1,48 +1,58 @@
 ---
 layout: default
-title: Diffraction Synthesizer 
+title: Diffraction Synthesizer
 date: 08-08-2026
 description: Sonifying diffraction patterns using FFTs in python
 ---
 
-<img width="585" height="282" alt="Screenshot 2026-08-11 at 23 40 56" src="https://github.com/user-attachments/assets/22c1fc47-562f-4868-9d56-42245ecf104b" />
+<figure class="post-figure hero-figure">
+  <img alt="Screenshot 2026-08-11 at 23 40 56" src="https://github.com/user-attachments/assets/22c1fc47-562f-4868-9d56-42245ecf104b" />
+</figure>
 
 # Diffraction Synthesizer: The Sounds of Fraunhofer Diffraction
 
 ## Summary
 
-<img width="539" height="213" alt="Screenshot 2026-08-11 at 23 32 43" src="https://github.com/user-attachments/assets/af14e59f-4777-4706-b673-011f09fdfee1" />
-
-*Source: http://labman.phys.utk.edu/phys136core/modules/m9/diffraction.html*
+<figure class="post-figure">
+  <img alt="Screenshot 2026-08-11 at 23 32 43" src="https://github.com/user-attachments/assets/af14e59f-4777-4706-b673-011f09fdfee1" />
+  <figcaption>Source: <a href="http://labman.phys.utk.edu/phys136core/modules/m9/diffraction.html">labman.phys.utk.edu</a></figcaption>
+</figure>
 
 While studying diffraction, I learned that Fraunhofer diffraction can be mathematically described by a Fourier transform, an operation which is used to break any function down into its constituent frequencies. I was intrigued, since I had previously only encountered Fourier transforms as method for audio signal processing, i.e. breaking down sounds into their constituent frequencies. This provoked me to think about what parallels could be drawn between optical and audio spectra, which ultimately led to the Diffraction Synthesizer.
 
 In this project, I aimed at creating an instrument in Python that could sonify diffraction patterns by using their unique shapes to modulate a pure tone and produce various timbres. Throughout, I also sought to familiarise myself with the fundamentals of Fourier transforms, FFTs, and signal processing in Python.
 
-
-
 ## Background
 
 If you, like me, are interested in both music and physics, you will probably have heard that the timbre, or unique sound, of synthesizers can be altered by modulating a pure tone.
 
-<img width="445" height="225" alt="telecom-principles-0116" src="https://github.com/user-attachments/assets/dd0ed849-4fdc-42bb-84e4-39bfab425039" />
+<figure class="post-figure">
+  <img alt="telecom-principles-0116" src="https://github.com/user-attachments/assets/dd0ed849-4fdc-42bb-84e4-39bfab425039" />
+  <figcaption>Source: <a href="https://www.technologyuk.net/telecommunications/telecom-principles/amplitude-modulation.shtml">technologyuk.net</a></figcaption>
+</figure>
 
-*Source: https://www.technologyuk.net/telecommunications/telecom-principles/amplitude-modulation.shtml*
+The key idea behind this Synth is to perform amplitude modulation on musical notes, where the carrier signal is a pure sine and the modulating signal is based on the amplitude pattern produced when light diffracts through a specific aperture. Here, "amplitude pattern" refers to the electric field amplitude as a function of position along the observation screen. I chose the amplitude pattern instead of the intensity pattern as the basis for this modulating signal, as it produces clearer differences in timbre. (Since $|E|^2 \propto I$, the intensity pattern drops much more quickly).
 
-The key idea behind this Synth is to perform amplitude modulation on musical notes, where the carrier signal is a pure sine and the modulating signal is based on the amplitude pattern produced when light diffracts through a specific aperture. Here, "amplitude pattern" refers to the electric field amplitude as a function of position along the observation screen. I chose the amplitude pattern instead of the intensity pattern as the basis for this modulating signal, as it produces clearer differences in timbre. (Since $|E|^2 \propto I $, the intensity pattern drops much more quickly).
-
-<img width="445" height="225" alt="Screenshot 2026-08-11 at 09 38 20" src="https://github.com/user-attachments/assets/c9a7d96c-0e46-48a1-acbe-db6ebea2ae59" />
-<img width="445" height="225" alt="Screenshot 2026-08-11 at 09 38 34" src="https://github.com/user-attachments/assets/14ac248e-fc85-4333-a043-91286086b929" />
+<div class="image-row">
+  <figure class="post-figure">
+    <img alt="Screenshot 2026-08-11 at 09 38 20" src="https://github.com/user-attachments/assets/c9a7d96c-0e46-48a1-acbe-db6ebea2ae59" />
+  </figure>
+  <figure class="post-figure">
+    <img alt="Screenshot 2026-08-11 at 09 38 34" src="https://github.com/user-attachments/assets/14ac248e-fc85-4333-a043-91286086b929" />
+  </figure>
+</div>
 
 ## Determining the amplitude pattern
 
 For a simple single slit in one dimension, the amplitude pattern can be described by a sinc function (i.e. a function of the form $\frac{sin(x)}{x}$), which is easily applied in Python. But, after encountering a [video on Fourier optics](https://www.youtube.com/watch?v=Y9FZ4igNxNA), which used uncommon aperture shapes to produce intricate diffraction patterns, I wanted my Synth to work with *any* aperture (albeit restricted to one spatial dimension, so that the amplitude pattern could still be mapped onto a time base later). In turn, I needed a way to describe the amplitude pattern as a function of the aperture shape.
 
-This is exactly what a Fourier transform does. 
+This is exactly what a Fourier transform does.
 
 It turns out the amplitude pattern produced by Fraunhofer (far-field) diffraction is proportional to the Fourier transform of the aperture function, A(x):
 
-$$\ F(k_x) \propto \int_{-\infty}^{\infty} A(x)e^{-ik_xx}\ dx \$$
+$$
+F(k_x) \propto \int_{-\infty}^{\infty} A(x)e^{-ik_xx}\ dx
+$$
 
 Here, A(x) describes at which points along aperture axis light can be transmitted. For example, for a single slit of width $a$:
 
@@ -56,21 +66,22 @@ $$
 
 so that the transform could be equivalently expressed as:
 
-$$\ F(k_x) \propto \int_{-a/2}^{a/2} e^{-ik_xx}\ dx \$$
+$$
+F(k_x) \propto \int_{-a/2}^{a/2} e^{-ik_xx}\ dx
+$$
 
-
-Here, $k_x$ denotes the x-component of the wave-vector associated with a particular observation direction, and $F(k_x)$ encodes the amplitude of the outgoing electric field for each $k_x$. What does this mean? 
+Here, $k_x$ denotes the x-component of the wave-vector associated with a particular observation direction, and $F(k_x)$ encodes the amplitude of the outgoing electric field for each $k_x$. What does this mean?
 
 At the aperture, each transmitting point acts as a source of secondary wavelets, by Huygen's principle. Beyond the aperture, the electric field at any given point in space is the superposition of all secondary wavelets at that point. In the Fraunhofer (far-field) region, the resulting field can be described as a collection of plane waves, each with a wave-vector $\mathbf{k}$, travelling in different directions towards the screen.
 
-<img width="275" height="148" alt="Screen Shot 2022-02-18 at 7 49 25 PM" src="https://github.com/user-attachments/assets/27daf644-ba6f-4ded-ae1b-7dd58b86e270" />
-https://phys.libretexts.org/Bookshelves/Electricity_and_Magnetism/Essential_Graduate_Physics_-_Classical_Electrodynamics_%28Likharev%29/08%3A_Radiation_Scattering_Interference_and_Diffraction/8.06%3A_Fresnel_and_Fraunhofer_Diffraction_Patterns 
+<figure class="post-figure">
+  <img alt="Screen Shot 2022-02-18 at 7 49 25 PM" src="https://github.com/user-attachments/assets/27daf644-ba6f-4ded-ae1b-7dd58b86e270" />
+  <figcaption>Source: <a href="https://phys.libretexts.org/Bookshelves/Electricity_and_Magnetism/Essential_Graduate_Physics_-_Classical_Electrodynamics_%28Likharev%29/08%3A_Radiation_Scattering_Interference_and_Diffraction/8.06%3A_Fresnel_and_Fraunhofer_Diffraction_Patterns">phys.libretexts.org</a></figcaption>
+</figure>
 
 The x-component of the wave-vector, $k_x$, describes the spatial phase variation of a particular plane wave along the x-axis. This phase variation determines how the contributions from each point source along the aperture interfere, and therefore determines the amplitude of the outgoing plane wave in that direction. Thus, $F(k_x)$ encodes the amplitude of each outgoing plane wave associated with a particular spatial frequency.
 
 Since a wave-vector describes the propagation direction of a plane wave, each $k_x$ can be associated with a specific observation angle, $\theta$, and thus a specific position $X$ along the screen. In the Fraunhofer regime:
-
-n the Fraunhofer regime:
 
 $$
 X = d\tan\theta \approx \theta d,
@@ -82,7 +93,7 @@ $$
 k_x = k\sin\theta \approx \theta k.
 $$
 
-where $k$ is the magnitude of the wave-vector $$\mathbf{k}$$ and is given by $$k = \frac{2\pi}{\lambda}$$. 
+where $k$ is the magnitude of the wave-vector $\mathbf{k}$ and is given by $k = \frac{2\pi}{\lambda}$.
 
 Combining these yields:
 
@@ -96,20 +107,19 @@ $$
 F(X) \propto \int_{-\infty}^{\infty} A(x)e^{-i\frac{kX}{d}x}\ dx
 $$
 
-
 ## Evaluating the Fourier transform in Python
 
 To evaluate this Fourier transform in Python, I used a Fast-Fourier-Transform (included in the numpy.fft library), due to its relatively low computational time. This required the integral to be re-expressed as a discrete Fourier transform (DFT) that the FFT can operate on:
 
 $$
-\sum_{n=-m}^{m} A(n\Delta x)\, e^{-i\frac{kX}{d}(n\Delta x)}\ \Delta x$$
+\sum_{n=-m}^{m} A(n\Delta x)\, e^{-i\frac{kX}{d}(n\Delta x)}\ \Delta x
 $$
 
-Here, $$\Delta x$$ refers to the interval size for each sample, $$n\Delta x$$ expresses the x-position of the sample, and $$m$$ indicates the total number of samples taken along the aperture on each side of $$x = 0$$.
+Here, $\Delta x$ refers to the interval size for each sample, $n\Delta x$ expresses the x-position of the sample, and $m$ indicates the total number of samples taken along the aperture on each side of $x = 0$.
 
-In this discrete framework, I defined an aperture function in terms of an input number of slits, at a fixed separation from each other. Padding is added as a parameter to increase the x-range sampled across the aperture. This ensures a sufficient number of samples taken given a fixed interval size $$\Delta x$$.
+In this discrete framework, I defined an aperture function in terms of an input number of slits, at a fixed separation from each other. Padding is added as a parameter to increase the x-range sampled across the aperture. This ensures a sufficient number of samples taken given a fixed interval size $\Delta x$.
 
-```
+```python
 def aperture_function(N,a,b,padding):
     """
     Define a one-dimensional aperture centered at x = 0.
@@ -156,9 +166,9 @@ def aperture_function(N,a,b,padding):
     return x, aperture
 ```
 
-The following function then executes a FFT on the aperture function. The cutoff parameter is used to extract only the range of spatial frequencies corresponding to significant amplitudes, close to the central maximum (at $$x = 0$$) along the screen. 
+The following function then executes a FFT on the aperture function. The cutoff parameter is used to extract only the range of spatial frequencies corresponding to significant amplitudes, close to the central maximum (at $x = 0$) along the screen.
 
-```
+```python
 def aperture_fft(x,aperture,l,d,cutoff):
     
     # Calculate magnitude of wavevector [rad/m]
@@ -188,7 +198,7 @@ Following this, I defined a function to build a modulating sine-wave based on th
 
 Notably, the cutoff that determines the relevant range of results from the FFT is defined as the product of the scaling paramter and the duration of the modulating signal. This ensures every mapping and modulation is audibly significant.
 
-```
+```python
 def modulate_sound(x,aperture,l,d,duration,carrier_freq,scale):
     """
     Amplitude modulation of a pure sine based on a Fraunhofer amplitude pattern
@@ -236,14 +246,14 @@ Finally, I designed the synth layout, and built the interactive element using Py
 
 Try for yourself:
 
+<div class="synth-demo">
+  <video controls poster="PATH_TO_A_THUMBNAIL.png">
+    <source src="PATH_TO_YOUR_SCREEN_RECORDING.mp4" type="video/mp4">
+    Your browser doesn't support embedded video — see the source code below to run it locally.
+  </video>
+  <p class="synth-note">This runs locally via PyGame + sounddevice, so it can't run directly in the browser — press <kbd>Space</kbd> to change aperture, and the letter keys to play notes.</p>
+</div>
 
-## Source Code
-(https://github.com/nk-clara/python)
-
-## References
-...
-
-## Takeaways and extensions
-
-
-
+<div class="code-download">
+  <a href="{{ '/assets/diffraction_synth.py' | relative_url }}" download>⬇ Download diffraction_synth.py</a>
+</div>
