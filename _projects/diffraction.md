@@ -3,6 +3,7 @@ layout: default
 title: Diffraction Synthesizer
 date: 08-08-2026
 description: Sonifying diffraction patterns using FFTs in python
+image: https://github.com/user-attachments/assets/22c1fc47-562f-4868-9d56-42245ecf104b
 ---
 
 # Diffraction Synthesizer: The Sounds of Fraunhofer Diffraction
