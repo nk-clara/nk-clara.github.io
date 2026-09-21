@@ -1,16 +1,21 @@
 ---
 layout: default
-title: Home Directory
+title: Clara NK 
 ---
 
 <section class="hero">
   <h1>Project Portfolio</h1>
-  <p>A collection of physics and computing projects!</p>
+  <p>A collection of physics, computing, and design projects!</p>
 </section>
 
 <section class="directory-container">
   {% for project in site.projects %}
     <div class="project-group">
+      {% if project.image %}
+        <a href="{{ project.url | relative_url }}" class="project-thumb">
+          <img src="{{ project.image }}" alt="{{ project.title }} thumbnail">
+        </a>
+      {% endif %}
       <div class="project-info">
         <h2> {{ project.title }}</h2>
         {% if project.description %}
