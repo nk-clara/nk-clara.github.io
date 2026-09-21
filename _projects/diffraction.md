@@ -5,13 +5,11 @@ date: 08-08-2026
 description: Sonifying diffraction patterns using FFTs in python
 ---
 
-# Diffraction Synthesizer: The Sounds of Fraunhofer Diffraction
-
 <img width="585" height="282" alt="Screenshot 2026-08-11 at 23 40 56" src="https://github.com/user-attachments/assets/22c1fc47-562f-4868-9d56-42245ecf104b" />
 
+# Diffraction Synthesizer: The Sounds of Fraunhofer Diffraction
 
-
-## Overview
+## Summary
 
 <img width="539" height="213" alt="Screenshot 2026-08-11 at 23 32 43" src="https://github.com/user-attachments/assets/af14e59f-4777-4706-b673-011f09fdfee1" />
 
@@ -44,7 +42,7 @@ This is exactly what a Fourier transform does.
 
 It turns out the amplitude pattern produced by Fraunhofer (far-field) diffraction is proportional to the Fourier transform of the aperture function, A(x):
 
-$\ F(k_x) \propto \int_{-\infty}^{\infty} A(x)e^{-ik_xx}\ dx \$
+$$\ F(k_x) \propto \int_{-\infty}^{\infty} A(x)e^{-ik_xx}\ dx \$$
 
 Here, A(x) describes at which points along aperture axis light can be transmitted. For example, for a single slit of width $a$:
 
@@ -84,7 +82,7 @@ $$
 k_x = k\sin\theta \approx \theta k.
 $$
 
-where $k$ is the magnitude of the wave-vector $\mathbf{k}$ and is given by $k = \frac{2\pi}{\lambda}$. 
+where $k$ is the magnitude of the wave-vector $$\mathbf{k}$$ and is given by $$k = \frac{2\pi}{\lambda}$$. 
 
 Combining these yields:
 
@@ -101,43 +99,151 @@ $$
 
 ## Evaluating the Fourier transform in Python
 
-To evaluate this Fourier transform in Python, I used a Fast-Fourier-Transform (included in the numpy.fft library), due to its relatively low computational time. This required the integral to be re-expressed as a discrete Fourier transform (DFT):
+To evaluate this Fourier transform in Python, I used a Fast-Fourier-Transform (included in the numpy.fft library), due to its relatively low computational time. This required the integral to be re-expressed as a discrete Fourier transform (DFT) that the FFT can operate on:
 
-**rexpress integral as discrete sum**
+$$
+\sum_{n=-m}^{m} A(n\Delta x)\, e^{-i\frac{kX}{d}(n\Delta x)}\ \Delta x$$
+$$
 
-To begin with, I created 
+Here, $$\Delta x$$ refers to the interval size for each sample, $$n\Delta x$$ expresses the x-position of the sample, and $$m$$ indicates the total number of samples taken along the aperture on each side of $$x = 0$$.
+
+In this discrete framework, I defined an aperture function in terms of an input number of slits, at a fixed separation from each other. Padding is added as a parameter to increase the x-range sampled across the aperture. This ensures a sufficient number of samples taken given a fixed interval size $$\Delta x$$.
+
+```
+def aperture_function(N,a,b,padding):
+    """
+    Define a one-dimensional aperture centered at x = 0.
+
+    Parameters
+        N: number of slits
+        a: slit width
+        b: slit separation
+        padding: determines how far the sample range extends beyond the aperture
+
+    Returns
+        x: x-coordinates (in meteres) of the samples taken along the aperture axis
+        aperture: the aperture function as a boolean array
+
+    Note:   currently only works for single and double slit apertures
+            (with a transmission of either 0 or 1 at a given x-coordinate)
+
+    """
+
+    # Defining a sample range along the aperture axis, centered at x = 0 (meters)
+    x_range = padding*a # [m]
+    dx = a/100 # [m]
+    x = np.arange(-x_range/2,x_range/2,dx)
+
+    # Determining the aperture function
+
+    if N == 1:
+        aperture = np.abs(x) < a/2
+    elif N % 2 == 0:
+        aperture = np.zeros(len(x), dtype=bool)
+        
+        slit_centers = np.arange(-(N-1)*b/2,(N+1)*b/2,b)
+
+        for centre in slit_centers:
+            aperture = aperture | (np.abs(x - centre) < a/2)
+    else:
+        aperture = np.zeros(len(x), dtype=bool)
+
+        slit_centers = np.arange(-(N-1)*b/2,(N+1)*b/2,b)
+
+        for centre in slit_centers:
+            aperture = aperture | (np.abs(x - centre) < a/2)
+
+    return x, aperture
+```
+
+The following function then executes a FFT on the aperture function. The cutoff parameter is used to extract only the range of spatial frequencies corresponding to significant amplitudes, close to the central maximum (at $$x = 0$$) along the screen. 
+
+```
+def aperture_fft(x,aperture,l,d,cutoff):
+    
+    # Calculate magnitude of wavevector [rad/m]
+    k = 2 * np.pi / l 
+
+    # Defining discrete spatial frequency bins for the FFT (rad/m)
+    kx = 2 * np.pi * fft.fftshift(fft.fftfreq(len(x),np.diff(x)[0]))
+
+    # Complex electric field at screen from FFT (arbitrary units)
+    E = fft.fftshift(fft.fft(aperture))
+
+    # Normalized electric field amplitude (arbitrary units)
+    ampl = np.abs(E)/np.max(np.abs(E))
+
+    # Converting spatial frequencies into x-positions along the screen (meters)
+    X =  (kx * d / k)
+
+    # Selecting a relevant range of the screen to observe
+    mask = np.abs(X) < cutoff
+    
+    return X[mask], ampl[mask]
+```
 
 ## Creating the modulating signal
 
+Following this, I defined a function to build a modulating sine-wave based on the diffraction pattern. This was based on an arbitrary scaling between positional coordinates of the diffraction pattern and time coordinates of an audio signal. Since the previous FFT function calculates a normalised electric field amplitude, this directly translates to an audio amplitude.
 
-1. Restrict the region of the screen to be used for the envelope. The region most useful in distinguishing different patterns is near the central maximum, after which amplitude variations are less significant.
-2. Define the length of the carrier signal (in seconds).
-3. Define a mapping between the selected position range onto the time range. 
+Notably, the cutoff that determines the relevant range of results from the FFT is defined as the product of the scaling paramter and the duration of the modulating signal. This ensures every mapping and modulation is audibly significant.
+
+```
+def modulate_sound(x,aperture,l,d,duration,carrier_freq,scale):
+    """
+    Amplitude modulation of a pure sine based on a Fraunhofer amplitude pattern
+
+    Parameters
+        x: x-coordinates (in meteres) of the samples taken along the aperture axis
+        aperture: takes an array containing the aperture function values
+        duration: duration in seconds of the audio
+        l: wavelength of light used for Fraunhofer amplitude pattern
+        d: distance from aperture to observation screen for Fraunhofer amplitude pattern
+        carrier_freq: frequency of the carrier signal
+        scale: determines how the spatial basis is mapped onto a time basis
+
+    Returns
+
+        time_x: array of discrete times at which the modulated amplitude is calculated
+        modulated: amplitude of the modulated sine wave (arbitrary units, from 0 to 1)
+        sample_rate: number of amplitude samples per unit time
+
+    """
+
+    # Use the space-to-time scaling to determine the
+    # relevant range of the Fraunhofer amplitude pattern
+    cutoff = scale * duration # [m]
+
+    # Compute FFT
+    X, ampl = aperture_fft(x,aperture,l,d,cutoff)
+    
+    # Setting time as the x-variable
+    time_x = np.linspace(0,duration,len(X))
+    
+    # Amplitude modulation of a pure sine
+    pure_sine = np.sin(2 * np.pi * carrier_freq * time_x)
+    modulated = pure_sine * ampl
+
+    # Calculating the sample rate 
+    sample_rate = int(len(time_x) / duration)
+
+    return modulated, sample_rate
+```
+
+## Building the Game in PyGame
+
+Finally, I designed the synth layout, and built the interactive element using PyGame and SoundDevice. I initially struggled to figure out the best library for both sonification and graphing, and I specifically couldn't figure out how to map the graph onto a PyGame surface (here, I had ChatGPT write up a function). Even with a working sound library, I encountered issues with the "smoothness" of the modulated sound, which ChatGPT traced to the interval size and padding value chosen. In other words, I had to spend some time manually fine-tuning the parameters for the amplitude function to ensure the FFT yielded spatial frequencies spaced closely enough to produce a "smooth" diffraction pattern.
+
+Try for yourself:
 
 
-Then, I defined a function to convert the FFT output into a time basis. 
-- I encountered several issues with playing audios in python, also with the modulation.
-- I thought the issue was with my coding, but using AI to debug showed that the issue was actually in my choices for the sampling parameters (I was getting confused between frequency bin size, the number of samples taken across the aperture, and what zero padding was).
-- Struggled with selecting the relevant region of the diffraction pattern, but came across the concept of "masks".
+## Source Code
+(https://github.com/nk-clara/python)
 
-
-Finally, I built the interactive element using Pygame. 
-- Initially struggled to figure out the best library for both sonification and graphing, because I couldn't figure out how to map the graph onto a Pygame surface (had AI write that function).
-
-
-
-## How to use
-
-Add explanation of how to use the synth.
-
+## References
+...
 
 ## Takeaways and extensions
 
 
 
-
-## Source Code
-
-(https://github.com/nk-clara/python)
-
-## References
