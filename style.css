@@ -145,3 +145,48 @@ code {
 }
 #runBtn:hover { background: #555; }
 #synthStatus { font-size: 0.85rem; color: #666; margin-top: 0.5rem; }
+
+
+.project-group {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #eee;
+}
+.project-thumb {
+  flex: 0 0 160px;
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.project-thumb img {
+  width: 160px;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+.project-thumb:hover img {
+  transform: scale(1.05);
+}
+.project-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Stack thumbnail above text on narrow screens */
+@media (max-width: 500px) {
+  .project-group {
+    flex-direction: column;
+  }
+  .project-thumb {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .project-thumb img {
+    width: 100%;
+    height: auto;
+    max-height: 180px;
+  }
+}
