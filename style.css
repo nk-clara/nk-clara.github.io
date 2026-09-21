@@ -149,20 +149,20 @@ code {
 
 .project-group {
   display: flex;
-  gap: 1.25rem;
+  gap: 1.5rem;
   align-items: flex-start;
-  padding: 1.25rem 0;
+  padding: 1.5rem 1.5rem;
   border-bottom: 1px solid #eee;
 }
 .project-thumb {
-  flex: 0 0 160px;
+  flex: 0 0 240px;
   display: block;
   border-radius: 8px;
   overflow: hidden;
 }
 .project-thumb img {
-  width: 160px;
-  height: 110px;
+  width: 240px;
+  height: 160px;
   object-fit: cover;
   display: block;
   transition: transform 0.2s ease;
@@ -176,9 +176,10 @@ code {
 }
 
 /* Stack thumbnail above text on narrow screens */
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .project-group {
     flex-direction: column;
+    padding: 1.25rem 1rem;
   }
   .project-thumb {
     flex: 0 0 auto;
@@ -187,6 +188,6 @@ code {
   .project-thumb img {
     width: 100%;
     height: auto;
-    max-height: 180px;
+    max-height: 220px;
   }
 }
