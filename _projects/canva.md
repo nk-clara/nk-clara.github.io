@@ -9,11 +9,7 @@ image: https://github.com/user-attachments/assets/f0d80e20-0185-4b15-a56a-0a4c04
 - Group project to pitch a product
 - Developed cohesive brand identity and business model
 
-
-
-
-
 <video width="640" height="360" controls>
-  <source src="https://github.com/user-attachments/assets/8bceadba-2364-4a99-8b92-e2f0c16a9cc0" type="video/mp4">
+  <source src="Seconds Back Updated.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
